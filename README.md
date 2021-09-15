@@ -26,7 +26,7 @@ docker run --name my-apache -d -p 8080:80 httpd:2.4
 docker exec -it my-apache bash
 
 #09
-docker run --name vol-apache -v ~/www-data/:/usr/local/apache2/htdocs/ -d -p 8080:80 httpd:2.4
+docker run --name vol-apache -v ~/www-data/:/usr/local/apache2/htdocs/ -d -p 8090:80 httpd:2.4
 
 #10
 docker exec -it vol-apache bash
@@ -38,7 +38,10 @@ docker run --name vol-nginx -d -p 8081:80 -v html:/usr/share/nginx/html -d nginx
 "docker inspect"
 docker inspect --format='{{.Config.Image}}' vol-nginx
 docker inspect --format='{{ .NetworkSettings.IPAddress }}' vol-nginx
+```
 
+# Dockerfile
+```
 #11
 FROM debian
 RUN apt-get update && apt-get install apache2 -y && apt-get clean
@@ -82,4 +85,31 @@ volumes:
   wordpress:
   db:
 ```
-############################################################################
+
+```yaml
+version: "3.7"
+
+services:
+  node-red:
+    image: nodered/node-red:latest
+    environment:
+      - TZ=Europe/Amsterdam
+    ports:
+      - "1880:1880"
+    networks:
+      - node-red-net
+    volumes:
+      - node-red-data:/data
+
+volumes:
+  node-red-data:
+
+networks:
+  node-red-net:
+```
+
+#Docker in der Praxis
+```
+docker volume create portainer_data
+docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce
+```
