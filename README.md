@@ -11,32 +11,41 @@ docker run alpine echo hello world
 ```
 #03
 docker run -it debian bash
-
+```
+```
 #04
 docker run -it -p 90:80 debian bash
-
+```
+```
 #05
 apt-get update && apt-get install -y apache2
-
+```
+```
 #06
 apache2ctl -DFOREGROUND
-
+```
+```
 #07
 docker run --name my-apache -d -p 8080:80 httpd:2.4
-
+```
+```
 #08
 docker exec -it my-apache bash
-
+```
+```
 #09
 docker run --name vol-apache -v ~/www-data/:/usr/local/apache2/htdocs/ -d -p 8090:80 httpd:2.4
-
+```
+```
 #10
 docker exec -it vol-apache bash
-
-Optional:
+```
+```
+#Optional:
 docker volume create html
 docker run --name vol-nginx -d -p 8081:80 -v html:/usr/share/nginx/html -d nginx
-
+```
+```
 "docker inspect"
 docker inspect --format='{{.Config.Image}}' vol-nginx
 docker inspect --format='{{ .NetworkSettings.IPAddress }}' vol-nginx
@@ -48,7 +57,8 @@ docker inspect --format='{{ .NetworkSettings.IPAddress }}' vol-nginx
 FROM debian
 RUN apt-get update && apt-get install apache2 -y && apt-get clean
 CMD ["apache2ctl", "-DFOREGROUND"]
-
+```
+```
 #12
 docker build -t myimage .
 docker run -d -p 90:80 --name myapp myimage
