@@ -3,10 +3,12 @@
 ```
 #01
 docker run hello-world
-
+```
+```
 #02
 docker run alpine echo hello world
-
+```
+```
 #03
 docker run -it debian bash
 
@@ -52,6 +54,8 @@ docker build -t myimage .
 docker run -d -p 90:80 --name myapp myimage
 ```
 
+# Docker-Compose
+#Wordpress
 ```yaml
 version: '3.1'
 
@@ -86,6 +90,7 @@ volumes:
   db:
 ```
 
+#Nodered
 ```yaml
 version: "3.7"
 
@@ -108,7 +113,8 @@ networks:
   node-red-net:
 ```
 
-#Docker in der Praxis
+# Docker in der Praxis
+#Portainer
 ```
 docker volume create portainer_data
 docker run -d -p 8000:8000 -p 9000:9000 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce
